@@ -1,0 +1,31 @@
+header {
+    width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box; /* Ensures padding is inside the width */
+    border: none;
+    border-bottom: 2px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Ensure button and other elements are aligned properly */
+    align-items: center; /* Align items vertically in the center */
+}
+
+header button {
+    color: white;
+    aspect-ratio: 1/1;
+    width: 20px;  /* Control button size here */
+    flex-shrink: 0;  /* Prevent flexbox from shrinking the button */
+    min-width: 20px;  /* Ensure a minimum size */
+    min-height: 20px; /* Ensure a minimum height */
+    background-color: black; /* Add a background color to make the button visible */
+    border: none;
+    display: inline-block;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+header button:hover{
+    background-color: gainsboro;
+    color:black
+}

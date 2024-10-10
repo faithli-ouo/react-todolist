@@ -1,0 +1,17 @@
+ul {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+li {
+    padding: 10px 0;        /* Add padding for spacing */
+    border-bottom: 1px solid #000000; /* Add a divider */
+  }
+  
+  /* Remove the border-bottom from the last <li> */
+  li:last-child {
+    border-bottom: none;
+  }
