@@ -4,43 +4,19 @@ import GlobalFooter from './compoents/global/Footer'
 import  GlobalHeader  from './compoents/global/Header'
 import List, { todolist } from './compoents/global/List/List'
 
-const tasks: todolist[]  = [
-  {
-    id: "1",
-    title: "Learn TypeScript",
-    status: "processing",
-    creatAt: "2024-10-10T09:00:00Z"
-  },
-  {
-    id: "2",
-    title: "Build a React App",
-    status: "undo",
-    creatAt: "2024-10-08T14:30:00Z"
-  },
-  {
-    id: "3",
-    title: "Fix CSS Layout",
-    status: "finish",
-    creatAt: "2024-10-07T16:45:00Z"
-  },
-  {
-    id: "4",
-    title: "Write Documentation",
-    status: "processing",
-    creatAt: "2024-10-09T12:15:00Z"
-  },
-  {
-    id: "5",
-    title: "Refactor Codebase",
-    status: "undo",
-    creatAt: "2024-10-10T08:20:00Z"
-  }
-];
-
-
-
 function App() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [todos, setTodos] = useState();
+
+  const fetchTodo = async () => {
+    try {
+      const res = await fetch('http://localhost:3000/');
+      const data = await res.json();
+      setTodos(data);
+    } catch (error) {
+      console.error('Error fetching todos:', error);
+    }
+  };
 
   const openDialog = () => {
     setIsDialogOpen(true);
@@ -53,6 +29,10 @@ function App() {
   const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+
+
+    fetchTodo()
+
     const handleClickOutside = (event: MouseEvent) => {
       if (dialogRef.current && !dialogRef.current.contains(event.target as Node)) {
         closeDialog();
@@ -68,10 +48,17 @@ function App() {
     };
   }, [isDialogOpen]);
 
-  const handleSubmitForm = (formData: React.FormEvent<HTMLFormElement>) => {
-    const data = new FormData(formData.target as HTMLFormElement)
-    const form = Object.fromEntries(data)
-  }
+  const submitForm = async (formData: FormData) => {
+    "use server";
+    await fetch('http://localhost:3000',{
+      method:'POST',
+      body: formData
+
+    })
+    .then((res)=> res.json())
+    .catch((error) => console.error("Error:", error))
+    closeDialog()
+  };
 
   const handleDeleteItem = (formData: React.FormEvent<HTMLFormElement>) => {
     const data = new FormData(formData.target as HTMLFormElement)
@@ -91,21 +78,18 @@ function App() {
           <h1>React Todolist</h1>
           <button onClick={() => openDialog()}> + </button>
         </GlobalHeader>
-        <List items={tasks}></List>
+        <List items={todos}></List>
         <GlobalFooter>
           <h3>Footer@{new Date().getFullYear()}</h3>
         </GlobalFooter>
       </div>
       {isDialogOpen &&
-        <div id='submit-form' ref={dialogRef}>
-          <form onSubmit={(e) => {
-            e.preventDefault()
-            handleSubmitForm(e)
-            }}>
+        <div id='submit-form' ref={dialogRef} >
+          <form action={submitForm}>
             <button id='close' onClick={() => closeDialog()}>x</button>
             <div>
               <label>Title</label>
-              <input id="title" name="title"/>
+              <input id="name" name="name"/>
               <label >Status</label>
               <select name="status" id="status">
                   <option value="" disabled selected>Select your option</option>

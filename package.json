@@ -10,12 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react": "^19.0.0-rc-09111202-20241011",
+    "react-dom": "^19.0.0-rc-09111202-20241011"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
-    "@types/react": "^18.3.10",
+    "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "eslint": "^9.11.1",

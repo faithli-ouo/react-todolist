@@ -7,9 +7,39 @@ ul {
 }
 
 li {
+  width: 100%;
     padding: 10px 0;        /* Add padding for spacing */
     border-bottom: 1px solid #000000; /* Add a divider */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
+
+.title{
+font-weight: bold;
+
+}
+
+.badgeTodo {
+  background: #000;
+  color: white;
+  padding: 6px 6px;
+  border-radius: 25px;
+}
+
+.badgeProcessing {
+  background: #16572c;
+  color: white;
+  padding: 6px 6px;
+  border-radius: 25px;
+}
+
+.badgeFinish {
+  background: #aaaaaa;
+  color: white;
+  padding: 6px 6px;
+  border-radius: 25px;
+}
   
   /* Remove the border-bottom from the last <li> */
   li:last-child {
