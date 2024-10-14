@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import './App.css'
 import GlobalFooter from './compoents/global/Footer'
 import  GlobalHeader  from './compoents/global/Header'
-import List, { todolist } from './compoents/global/List/List'
+import List from './compoents/global/List/List'
 
 function App() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -59,16 +59,6 @@ function App() {
     .catch((error) => console.error("Error:", error))
     closeDialog()
   };
-
-  const handleDeleteItem = (formData: React.FormEvent<HTMLFormElement>) => {
-    const data = new FormData(formData.target as HTMLFormElement)
-    const form = Object.fromEntries(data)
-  }
-
-  const handleEditItem = (formData: React.FormEvent<HTMLFormElement>) => {
-    const data = new FormData(formData.target as HTMLFormElement)
-    const form = Object.fromEntries(data)
-  }
 
   
   return (

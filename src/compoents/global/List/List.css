@@ -14,7 +14,12 @@ li {
     flex-direction: row;
     justify-content: space-between;
   }
-
+li div{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1rem;
+}
 .title{
 font-weight: bold;
 
@@ -23,8 +28,8 @@ font-weight: bold;
 .badgeTodo {
   background: #000;
   color: white;
-  padding: 6px 6px;
-  border-radius: 25px;
+  padding: 10px 10px;
+  border-radius: 1rem;
 }
 
 .badgeProcessing {
@@ -44,4 +49,12 @@ font-weight: bold;
   /* Remove the border-bottom from the last <li> */
   li:last-child {
     border-bottom: none;
+  }
+
+  .edit {
+    background-color: rgb(173, 145, 19);
+  }
+
+  .delete {
+    background-color: rgb(173, 19, 19);
   }
