@@ -4,13 +4,15 @@ import GlobalFooter from './compoents/global/Footer'
 import  GlobalHeader  from './compoents/global/Header'
 import List from './compoents/global/List/List'
 
+const backend_url = import.meta.env.VITE_BACKEND_HOST!
+
 function App() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [todos, setTodos] = useState();
 
   const fetchTodo = async () => {
     try {
-      const res = await fetch('http://localhost:3000/');
+      const res = await fetch(backend_url);
       const data = await res.json();
       setTodos(data);
     } catch (error) {
@@ -48,9 +50,10 @@ function App() {
     };
   }, [isDialogOpen]);
 
-  const submitForm = async (formData: FormData) => {
-    "use server";
-    await fetch('http://localhost:3000',{
+  const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget); 
+    await fetch(backend_url,{
       method:'POST',
       body: formData
 
@@ -75,7 +78,7 @@ function App() {
       </div>
       {isDialogOpen &&
         <div id='submit-form' ref={dialogRef} >
-          <form action={submitForm}>
+          <form onSubmit={submitForm}>
             <button id='close' onClick={() => closeDialog()}>x</button>
             <div>
               <label>Title</label>

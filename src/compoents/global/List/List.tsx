@@ -12,6 +12,8 @@ export type ListItems = {
     items?: TodoList[]
 }
 
+const backend_url = import.meta.env.VITE_BACKEND_HOST!
+
 export default function List({items}: ListItems) {
     
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -45,22 +47,25 @@ export default function List({items}: ListItems) {
         setIsDialogOpen(true)
       }
     
-      const submitEditForm = async (formData: FormData) => {
-        "use server";
-        const id = formData.get('id')
-        await fetch(`http://localhost:3000/${id}`,{
-          method:'PUT',
-          body: formData
-    
-        })
-        .then((res)=> res.json())
-        .catch((error) => console.error("Error:", error))
-        closeDialog()
-        window.location.reload()
+      const submitEditForm = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault(); 
+      
+        const formData = new FormData(e.currentTarget); 
+        const id = formData.get('id'); 
+      
+
+          await fetch(backend_url + `${id}`, {
+            method: 'PUT',
+            body: formData,
+            });
+
+          closeDialog(); 
+          window.location.reload();
       };
+      
 
     const deleteTodo = async (params:string) => {
-        await fetch(`http://localhost:3000/${params}`,{
+        await fetch(backend_url+`${params}`,{
             method:'Delete',
         })
         .then((res)=> res.json())
@@ -94,7 +99,7 @@ export default function List({items}: ListItems) {
         </GlobalContainer>
         {isDialogOpen &&
         <div id='submit-form' ref={dialogRef} >
-          <form action={submitEditForm}>
+          <form onSubmit={submitEditForm}>
             <div className="form-header">
                 <h2>Edit Form</h2>
                 <button id='close' onClick={() => closeDialog()}>x</button>
